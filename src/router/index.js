@@ -12,9 +12,14 @@ const router = createRouter({
                     path: '/',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')
+                },
+                {
+                    path: '/net-salary',
+                    name: 'net-salary',
+                    component: () => import('@/views/SalaryCalculator.vue')
                 }
-    ]
-    }
+            ]
+        }
     ]
 });
 
