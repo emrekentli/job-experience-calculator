@@ -56,28 +56,30 @@ const calculate = () => {
 </script>
 
 <template>
-    <div class="grid justify-content-center">
-        <div class="card">
-            <h1>Job Experience Calculator</h1>
-            <p>Calculate your total job experience in years, months, and days.</p>
-
-            <div class="formgroup-inline" v-for="date in dates" :key="date">
-                <div class="field">
-                    <label for="startDate">Start Date</label>
-                    <Calendar v-model="date.startDate" view="month" dateFormat="mm/yy" />
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid">
+                <h1>Job Experience Calculator</h1>
+               <p>Calculate your total job experience in years, months, and days.</p>
+                <div class="formgrid grid" v-for="date in dates" :key="date">
+                    <div class="field col-12 md:col-5">
+                        <label for="startDate">Start Date</label>
+                        <Calendar v-model="date.startDate" view="month" dateFormat="mm/yy"  />
+                    </div>
+                    <div class="field col-12 md:col-5">
+                        <label for="startDate">End Date</label>
+                        <Calendar v-model="date.endDate" view="month" dateFormat="mm/yy"  />
+                    </div>
+                    <div class="field col-12 md:col-2 grid gap-5 align-content-center m-0">
+                        <Button  icon="pi pi-plus" @click="addDate"  class="m-0 w-full md:w-3rem"/>
+                        <Button severity="danger" icon="pi pi-times" @click="removeDate(date)" v-if="dates.length > 1" class="m-0 w-full md:w-3rem"/>
+                    </div>
+                <Divider />
                 </div>
-                <div class="field">
-                    <label for="startDate">End Date</label>
-                    <Calendar v-model="date.endDate" view="month" dateFormat="mm/yy" />
-                </div>
-                <div class="flex gap-2">
-                    <Button label="Add Date" @click="addDate" />
-                    <Button severity="danger" label="Remove Date" @click="removeDate(date)" v-if="dates.length > 1" />
-                </div>
+                <Button label="Calculate" @click="calculate" />
+              <h5>{{ calculatedText }} </h5>
             </div>
-            <Button label="Calculate" @click="calculate" />
-            <h5>{{ calculatedText }} </h5>
         </div>
-    </div>
 
+    </div>
 </template>
