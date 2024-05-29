@@ -8,7 +8,7 @@ const model = ref([
         label: 'Home',
         items: [
             { label: 'Job Experience Calculator', icon: 'pi pi-fw pi-home', to: '/' },
-            { label: 'Net Salary Calculator', icon: 'pi pi-fw pi-percentage', to: '/net-salary' }
+            { label: 'Percentage Calculator', icon: 'pi pi-fw pi-percentage', to: '/percentage' }
         ]
     }
 ]);

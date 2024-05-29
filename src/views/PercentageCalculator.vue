@@ -1,12 +1,9 @@
 <script setup>
-// take dynamic dates from user
-// calculate the difference between two dates
-// calculate the total experience in years, months, and days
 
 import { ref } from 'vue';
 
 const percentage = ref(0);
-const annualGrossSalary = ref(0);
+const salary = ref(0);
 const calculatedText = ref('');
 const currencies = [
     { name: 'Türk Lirası', code: 'TRY' , symbol: '₺'},
@@ -17,7 +14,7 @@ const currencies = [
 ];
 const selectedCurrency = ref(currencies[0]);
 const calculate = () => {
-    const calculated = annualGrossSalary.value * (percentage.value / 100);
+    const calculated = salary.value * (percentage.value / 100);
     calculatedText.value = `Calculated: ${formatCurrency(calculated)}`;
 };
 
@@ -30,12 +27,12 @@ const formatCurrency = (value) => {
     <div class="grid">
         <div class="col-12">
             <div class="card p-fluid">
-                <h1>Net Salary Calculator</h1>
-                <p>Calculate your net salary by entering your annual gross salary and the percentage you want to calculate.</p>
+                <h1>Percentage Calculator</h1>
+                <p>Calculate the percentage of your salary</p>
                 <div class="formgrid grid">
                     <div class="field col-12 md:col-4">
-                        <label for="yearlySalary">Annual Gross Salary </label>
-                        <InputNumber v-model="annualGrossSalary" inputId="currency-us" mode="currency"
+                        <label for="yearlySalary">Salary </label>
+                        <InputNumber v-model="salary" inputId="currency-us" mode="currency"
                                      :currency="selectedCurrency.code" locale="tr-TR" />
                     </div>
                     <div class="field col-12 md:col-4">

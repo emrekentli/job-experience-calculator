@@ -14,9 +14,9 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
-                    path: '/net-salary',
-                    name: 'net-salary',
-                    component: () => import('@/views/SalaryCalculator.vue')
+                    path: '/percentage',
+                    name: 'percentage',
+                    component: () => import('@/views/PercentageCalculator.vue')
                 }
             ]
         }
