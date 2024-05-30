@@ -23,7 +23,7 @@ onMounted(() => {
 })
 const selectedCurrency = ref(currencies[0]);
 const calculate = () => {
-    const yearly = (monthlySalary.value * 12) * (company.value.percentage / 100);
+    const yearly = (monthlySalary.value * company.value.month) * (company.value.percentage / 100);
     const monthly = (monthlySalary.value ) * (company.value.percentage / 100);
     yearlyText.value = `Yearly: ${formatCurrency(yearly)}`;
     monthlyText.value = `Monthly: ${formatCurrency(monthly)}`;
