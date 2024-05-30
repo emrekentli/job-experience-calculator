@@ -38,7 +38,7 @@ const hideDialog = () => {
 
 const saveCompany = () => {
     submitted.value = true;
-    if (company.value.name && company.value.name.trim() && company.value.percentage) {
+    if (company.value.name && company.value.name.trim() && company.value.percentage && company.value.month) {
         if (company.value.id) {
             companies.value[findIndexById(company.value.id)] = company.value;
             console.log(companies.value);
@@ -69,7 +69,7 @@ const deleteCompany = () => {
     companies.value = companies.value.filter((val) => val.id !== company.value.id);
     deleteCompanyDialog.value = false;
     company.value = {};
-    toast.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+    toast.add({ severity: 'success', summary: 'Successful', detail: 'Company Deleted', life: 3000 });
     saveCompanies(companies.value)
 };
 
@@ -99,7 +99,7 @@ const deleteSelectedCompanies = () => {
     companies.value = companies.value.filter((val) => !selectedCompanies.value.includes(val));
     deleteCompaniesDialog.value = false;
     selectedCompanies.value = null;
-    toast.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+    toast.add({ severity: 'success', summary: 'Successful', detail: 'Companies Deleted', life: 3000 });
     saveCompanies(companies.value);
 };
 
@@ -199,6 +199,8 @@ const initFilters = () => {
                         <div class="field col">
                             <label for="quantity">Month</label>
                             <InputNumber id="quantity" v-model="company.month" integeronly />
+                            <small class="p-invalid" v-if="submitted && !company.month">Month is
+                                required.</small>
                         </div>
                     </div>
                     <template #footer>
