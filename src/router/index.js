@@ -17,6 +17,11 @@ const router = createRouter({
                     path: '/percentage',
                     name: 'percentage',
                     component: () => import('@/views/PercentageCalculator.vue')
+                },
+                {
+                    path: '/companies',
+                    name: 'companies',
+                    component: () => import('@/views/Company.vue')
                 }
             ]
         }

@@ -1,26 +1,37 @@
 <script setup>
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getCompanies } from '@/service/CompanyService';
 
-const percentage = ref(0);
-const salary = ref(0);
-const calculatedText = ref('');
+const company = ref(0);
+const monthlySalary = ref(0);
+const yearlyText = ref('');
+const monthlyText = ref('');
 const currencies = [
-    { name: 'Türk Lirası', code: 'TRY' , symbol: '₺'},
-    { name: 'USD', code: 'USD' , symbol: '$'},
+    { name: 'Türk Lirası', code: 'TRY', symbol: '₺' },
+    { name: 'USD', code: 'USD', symbol: '$' },
     { name: 'Euro', code: 'EUR', symbol: '€' },
     { name: 'Pound', code: 'GBP', symbol: '£' },
-    { name: 'Yen', code: 'JPY', symbol: '¥' },
+    { name: 'Yen', code: 'JPY', symbol: '¥' }
 ];
+const companies = ref([]);
+onMounted(() => {
+    getCompanies().then((res) => {
+        companies.value = res;
+        company.value = companies.value[0];
+    });
+})
 const selectedCurrency = ref(currencies[0]);
 const calculate = () => {
-    const calculated = salary.value * (percentage.value / 100);
-    calculatedText.value = `Calculated: ${formatCurrency(calculated)}`;
+    const yearly = (monthlySalary.value * 12) * (company.value.percentage / 100);
+    const monthly = (monthlySalary.value ) * (company.value.percentage / 100);
+    yearlyText.value = `Yearly: ${formatCurrency(yearly)}`;
+    monthlyText.value = `Monthly: ${formatCurrency(monthly)}`;
 };
 
 const formatCurrency = (value) => {
     return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: selectedCurrency.value.code }).format(value);
-    }
+};
 </script>
 
 <template>
@@ -31,21 +42,22 @@ const formatCurrency = (value) => {
                 <p>Calculate the percentage of your salary</p>
                 <div class="formgrid grid">
                     <div class="field col-12 md:col-4">
-                        <label for="yearlySalary">Salary </label>
-                        <InputNumber v-model="salary" inputId="currency-us" mode="currency"
+                        <label for="yearlySalary">Monthly Salary </label>
+                        <InputNumber v-model="monthlySalary" inputId="currency-us" mode="currency"
                                      :currency="selectedCurrency.code" locale="tr-TR" />
                     </div>
                     <div class="field col-12 md:col-4">
-                        <label for="startDate">Percentage</label>
-                        <InputNumber prefix="%" v-model="percentage" />
+                        <label for="startDate">Company</label>
+                        <Dropdown v-model="company" optionLabel="name" :options="companies" />
                     </div>
                     <div class="field col-12 md:col-4">
                         <label for="startDate">Currency</label>
-                        <Dropdown v-model="selectedCurrency" optionLabel="name"  :options="currencies" />
+                        <Dropdown v-model="selectedCurrency" optionLabel="name" :options="currencies" />
                     </div>
                 </div>
                 <Button label="Calculate" @click="calculate" />
-                <h5>{{ calculatedText }} </h5>
+                <h5>{{ yearlyText }} </h5>
+                <h5>{{ monthlyText }} </h5>
             </div>
         </div>
 

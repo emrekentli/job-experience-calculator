@@ -8,7 +8,8 @@ const model = ref([
         label: 'Home',
         items: [
             { label: 'Job Experience Calculator', icon: 'pi pi-fw pi-home', to: '/' },
-            { label: 'Percentage Calculator', icon: 'pi pi-fw pi-percentage', to: '/percentage' }
+            { label: 'Percentage Calculator', icon: 'pi pi-fw pi-percentage', to: '/percentage' },
+            { label: 'Companies', icon: 'pi pi-fw pi-home', to: '/companies' }
         ]
     }
 ]);
